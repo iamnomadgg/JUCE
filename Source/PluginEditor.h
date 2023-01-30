@@ -233,6 +233,11 @@ struct ResponseCurveComponent : juce::Component,
     void timerCallback() override;
     void paint(juce::Graphics& g) override;
     void resized() override;
+
+    void toggleAnalysisEnablement(bool isEnabled)
+    {
+        shouldShowFFTAnalysis = isEnabled;
+    }
 private:
     SimpleEQAudioProcessor& audioProcessor;
     juce::Atomic<bool> parametersChanged{ false };
@@ -247,6 +252,8 @@ private:
     juce::Rectangle<int> getAnalysisArea();
 
     PathProducer leftPathProducer, rightPathProducer;
+
+    bool shouldShowFFTAnalysis = true;
 };
 
 //==============================================================================
@@ -285,7 +292,6 @@ public:
     //==============================================================================
     void paint(juce::Graphics&) override;
     void resized() override;
-
 private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
